@@ -24,3 +24,4 @@ namespace WardScreen.Models
         public string pcategory { get; set; }
     }
 }
+    

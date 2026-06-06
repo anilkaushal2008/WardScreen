@@ -27,7 +27,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=ForthICU}/{action=Screen}/{id?}");
+    pattern: "{controller=Ward}/{action=Screen}/{id?}");
 //pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

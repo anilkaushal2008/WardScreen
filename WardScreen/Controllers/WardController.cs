@@ -6,11 +6,11 @@ using System.Linq;
     
 namespace WardScreen.Controllers
 {
-    public class ForthICUController : Controller
+    public class WardController : Controller
     {
         private readonly IHMSContext Entity;
         private readonly IConfiguration _configurationBuilder;
-        public ForthICUController(IHMSContext ihmscontext, IConfiguration configurationBuilder)
+        public WardController(IHMSContext ihmscontext, IConfiguration configurationBuilder)
         {
             Entity = ihmscontext;
             _configurationBuilder = configurationBuilder;
