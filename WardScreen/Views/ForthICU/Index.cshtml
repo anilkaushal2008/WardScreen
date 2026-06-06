@@ -1,0 +1,202 @@
+﻿
+@*For refreshing page content *@
+<meta http-equiv="refresh" content="240">
+@model IEnumerable<WardScreen.Models.spScreenGetWardResult>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/> 
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.css" rel="stylesheet"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="~/css/marquee.css" rel="stylesheet" /> 
+</head>
+<body>     
+     <div class="card form-control" align="center">        
+       <div class="card-title" style="font-size:x-large;font-weight:bold;font-style:oblique;color:orangered">
+            <img src="~/images/MyHospitallarge.jpg" height="50px" width="100px" alt="logo" align="left" />
+            <a style="text-align:match-parent;font-size:xx-large">MY HOSPITAL INDOOR PATIENT INFORMATION HUB </a>
+            <img src="~/images/MyHospitallarge.jpg" height="50px" width="100px" alt="logo" align="right" />
+        </div>    
+        @{
+            if (Model.Count() != 0)
+            {
+                <table id="headertable" class="table table-responsive table-bordered table-hover table-striped" style="font-size:larger;margin-bottom:unset;margin-top:auto" width="100%">
+                    <thead class="border border-dark border-3">
+                        <tr>
+                            <td width="6%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                Sr. No.
+                            </td>
+                            <td width="12%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                UHID   
+                            </td>
+                            <td width="10%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                IPD NO
+                            </td>
+                            <td width="15%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                Name
+                            </td>
+                            <td width="20%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                Consultant
+                            </td>
+                            <td width="10%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                D.O.A
+                            </td>
+                            <td width="10%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                Location(Ward/BedNo)
+                            </td>
+                            <td width="20%" style="color:orangered;background-color:darkblue;font-weight:bolder">
+                                Category
+                            </td>
+                        </tr>          
+                    </thead>     
+                    <tbody>
+                    </tbody>
+                </table>
+                if (Model.Count() > 9)
+                {
+                    <marquee direction="up" scrollamount="3">
+                        <table id="bodytable" class="table table-responsive table-bordered table-hover table-striped" width="100%">
+                            <thead></thead>
+                            <tbody class="border border-dark border-3" style="font-size:large">
+                                @foreach (var item in Model.Select((a, i) => new { Data = a, Index = i + 1 }))
+                                {
+                                    <tr style="color:white;background-color:forestgreen;font-weight:500;font-weight:bolder">
+                                        <td>
+                                            @item.Index                  
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.opdno)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.ipdno)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.pname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.docname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.dtadmission)
+                                        </td>
+                                        @{
+                                            string cward = "";
+                                            string croom = "";
+                                            string cbed = "";
+                                            if (item.Data.cward != null)
+                                            {
+                                                cward = item.Data.cward.ToString();
+                                            }
+                                            if (item.Data.cbed != null)
+                                            {
+                                                cbed = item.Data.cbed.ToString();
+                                            }
+                                            if (item.Data.croom != null)
+                                            {
+                                                croom = item.Data.croom.ToString();
+                                            }
+                                            <td>
+                                                @croom/@cbed
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.pcategory)
+                                        </td>
+                                    </tr>
+                                }            
+                            </tbody>
+                        </table>
+                    </marquee>
+                }
+                else
+                {                   
+                   <table id="bodytable" class="table table-responsive table-bordered table-hover table-striped" width="100%">
+                            <thead></thead>
+                        <tbody class="border border-dark border-3" style="font-size:large">
+                                @foreach (var item in Model.Select((a, i) => new { Data = a, Index = i + 1 }))
+                                {
+                                <tr style="color:white;background-color:forestgreen;font-weight:bolder">
+                                        <td>
+                                            @item.Index
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.opdno)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.ipdno)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.pname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.docname)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.dtadmission)
+                                        </td>
+                                        @{
+                                            string cward = "";
+                                            string cbed = "";
+                                            if (item.Data.cward != null)
+                                            {
+                                                cward = item.Data.cward.ToString();
+                                            }
+                                            if (item.Data.cbed != null)
+                                            {
+                                                cbed = item.Data.cbed.ToString();
+                                            }
+                                            <td>
+                                                @cward/@cbed
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.DisplayFor(Model => item.Data.pcategory)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>                    
+                }
+            }
+            else
+            {
+                <div align="center">
+                    <br>
+                  <a style="font-size:large;font-weight:bold;color:red" align="center">
+                    No one patient found in Private/Semi Private Area!
+                 </a>
+        </div>
+        }
+       }
+    </div>
+    <a href="~/lib/bootstrap/dist/js/bootstrap.bundle.js.map"></a>
+    <a href="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"></a>
+    <a href="~/lib/bootstrap/dist/js/bootstrap.esm.js.map"></a>
+    <a href="~/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"></a>
+    <a href="~/lib/bootstrap/dist/js/bootstrap.js.map"></a>
+    <a href="~/lib/bootstrap/dist/js/bootstrap.min.js.map"></a>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        $('#headertable td').each(function (i, el) {
+            var hgt = $(this).height();
+            var wdt = $(this).width();
+            $('#bodytable td').eq(i).height(hgt);
+            $('#bodytable td').eq(i).width(wdt);
+        });
+    </script>
+</body>
+</html>
